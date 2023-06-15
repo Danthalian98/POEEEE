@@ -1,8 +1,8 @@
 package Clases;
 
 import frames.frmCompra;
+import frames.frmRenta;
 import javax.swing.JOptionPane;
-import proyecto.frmRenta;
 
 public class Pila {
     public Cliente pilaCl;
@@ -23,6 +23,7 @@ public class Pila {
         pilaL = null;
         pilaR = null;
         pilaRA = null;
+        pilaS = null;
         cantNodos = 0;
     }    
 
@@ -145,7 +146,7 @@ public class Pila {
     
     public void pushSeccion(char le, int esp, String gen)
     {
-        Seccion nuevo = new Seccion(le,esp,gen);
+        Seccion nuevo = new Seccion(le, esp,gen);
         
         if(pilaS == null){
             pilaS = nuevo;
@@ -154,7 +155,7 @@ public class Pila {
             Seccion aux = pilaS;
             pilaS = nuevo;
             nuevo.setAptSiguiente(aux);
-        }            
+        }
     }
     
     public void reapilarSeccion()
@@ -232,8 +233,39 @@ public class Pila {
             nuevo.setAptSiguiente(aux);
         }        
     }         
-    public void validarEspacio()
+
+    public void buscarLibro(String lib, Libro lbr)
     {
-        
+        String datos = "Vacio :(";
+        Libro aux = lbr;
+        /*esta sentencia en el while debe quedar de esta forma a comparacion de las que suelo trabajar debido al que el recorrido es desde el ultimo al primero*/
+        while(aux != null)
+        {           
+            if(aux.getTitulo().equals(lib))
+            {
+                datos += "Titulo: " + aux.getTitulo() + "\n";
+                datos += "Editorial: " + aux.getEditorial() + "\n";
+                datos += "Genero: " + aux.getGenero()+ "\n";
+                datos += "Existencias: " + aux.getCantidad()+ "\n";
+                datos += "Precio: " + aux.getPrecio();
+            }else
+            {
+                datos = "No existe el libro en el almacen";
+            }
+            aux = aux.getAptSiguiente();
+        }
+        JOptionPane.showMessageDialog(null, datos);   
+    }
+    
+    public void agruparLibrosGen(String gen, int cantD, Libro lib)
+    {
+        Libro aux = lib;
+        /*esta sentencia en el while debe quedar de esta forma a comparacion de las que suelo trabajar debido al que el recorrido es desde el ultimo al primero*/
+        while(aux.getGenero().equals(gen))
+        {
+            
+            aux = aux.getAptSiguiente();
+        }
+         
     }
 }

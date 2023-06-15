@@ -1,4 +1,4 @@
-package proyecto;
+package frames;
 
 import Clases.Pila;
 import frames.frmMenu;

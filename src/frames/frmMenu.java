@@ -1,5 +1,6 @@
 package frames;
 
+import Clases.Libro;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Point;
@@ -13,6 +14,8 @@ import proyecto.jifCliente;
 import proyecto.jifCompra;
 import proyecto.jifLibro;
 import proyecto.jifMosUsu;
+import proyecto.jifRenta;
+import proyecto.jifSeccion;
 
 public class frmMenu extends javax.swing.JFrame {
     Pila datoC = new Pila();
@@ -72,7 +75,6 @@ public class frmMenu extends javax.swing.JFrame {
         jmnSecciones = new javax.swing.JMenu();
         jmiEstantantes = new javax.swing.JRadioButtonMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        jmiModificarEstante = new javax.swing.JRadioButtonMenuItem();
         jmiBuscar = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jmiRegLibro = new javax.swing.JMenuItem();
@@ -99,14 +101,14 @@ public class frmMenu extends javax.swing.JFrame {
             .addGroup(jdpEscritorioLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jlblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(349, Short.MAX_VALUE))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
         jdpEscritorioLayout.setVerticalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jdpEscritorioLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jlblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(378, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         jmnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImgProyecto/usuario.png"))); // NOI18N
@@ -157,6 +159,11 @@ public class frmMenu extends javax.swing.JFrame {
 
         jmiRenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImgProyecto/renta.png"))); // NOI18N
         jmiRenta.setText("Renta");
+        jmiRenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRentaActionPerformed(evt);
+            }
+        });
         jmnClientes.add(jmiRenta);
         jmnClientes.add(jSeparator1);
 
@@ -178,7 +185,7 @@ public class frmMenu extends javax.swing.JFrame {
         jmnSecciones.setText("Secciones");
 
         jmiEstantantes.setSelected(true);
-        jmiEstantantes.setText("Ver estantes");
+        jmiEstantantes.setText("Agregar Estante");
         jmiEstantantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImgProyecto/stand.png"))); // NOI18N
         jmiEstantantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,20 +195,15 @@ public class frmMenu extends javax.swing.JFrame {
         jmnSecciones.add(jmiEstantantes);
         jmnSecciones.add(jSeparator4);
 
-        jmiModificarEstante.setSelected(true);
-        jmiModificarEstante.setText("Modificar");
-        jmiModificarEstante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImgProyecto/mostrar.png"))); // NOI18N
-        jmiModificarEstante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiModificarEstanteActionPerformed(evt);
-            }
-        });
-        jmnSecciones.add(jmiModificarEstante);
-
         jmnLibro.add(jmnSecciones);
 
         jmiBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImgProyecto/buscar.png"))); // NOI18N
         jmiBuscar.setText("Buscar");
+        jmiBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiBuscarActionPerformed(evt);
+            }
+        });
         jmnLibro.add(jmiBuscar);
         jmnLibro.add(jSeparator3);
 
@@ -255,12 +257,11 @@ public class frmMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jrmMostrarL3ActionPerformed
 
-    private void jmiModificarEstanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiModificarEstanteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiModificarEstanteActionPerformed
-
     private void jmiEstantantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEstantantesActionPerformed
-        // TODO add your handling code here:
+        Libro aux = datoL.pilaL;
+        jifSeccion estan = new jifSeccion(this,datoS,aux);
+        jdpEscritorio.add(estan);
+        estan.show(); 
     }//GEN-LAST:event_jmiEstantantesActionPerformed
 
     private void jmnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnClientesActionPerformed
@@ -296,8 +297,23 @@ public class frmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiRegLibroActionPerformed
 
     private void jmiCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCompraActionPerformed
-               
+        jifCompra com = new jifCompra(this,datoC);
+        jdpEscritorio.add(com);
+        com.show();        
     }//GEN-LAST:event_jmiCompraActionPerformed
+
+    private void jmiBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarActionPerformed
+        Libro aux = datoL.pilaL;
+        String libro;
+        libro = JOptionPane.showInputDialog(null, "Ingrese el nombre del libro");
+        datoS.buscarLibro(libro,aux);
+    }//GEN-LAST:event_jmiBuscarActionPerformed
+
+    private void jmiRentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRentaActionPerformed
+        jifRenta ren = new jifRenta(this,datoR);
+        jdpEscritorio.add(ren);
+        ren.show();   
+    }//GEN-LAST:event_jmiRentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,6 +348,14 @@ public class frmMenu extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -353,7 +377,6 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiBuscar;
     private javax.swing.JMenuItem jmiCompra;
     private javax.swing.JRadioButtonMenuItem jmiEstantantes;
-    private javax.swing.JRadioButtonMenuItem jmiModificarEstante;
     private javax.swing.JMenuItem jmiMosRegClientes;
     private javax.swing.JMenuItem jmiMosRegEmpleado;
     private javax.swing.JMenuItem jmiRAClientes;
