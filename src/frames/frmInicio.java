@@ -16,7 +16,7 @@ public class frmInicio extends javax.swing.JFrame {
     ImagenFondo fondo2;
     
     public frmInicio() {
-        fondo = new ImagenFondo("src/ImgProyecto/empresa.jpg");
+        fondo = new ImagenFondo("src/ImgProyecto/ARIAS.jpeg");
         this.setContentPane(fondo);        
         initComponents();
      /* obj1[0] = new Usuario("user01", "1234");
