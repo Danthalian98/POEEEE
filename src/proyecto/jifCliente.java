@@ -9,7 +9,7 @@ public class jifCliente extends javax.swing.JInternalFrame {
     public jifCliente(frmMenu me, Pila Cliente) {
         initComponents();
         Regreso = me;
-        Cl = Cliente;
+        //Cl = Cliente;
     }
 
     @SuppressWarnings("unchecked")
